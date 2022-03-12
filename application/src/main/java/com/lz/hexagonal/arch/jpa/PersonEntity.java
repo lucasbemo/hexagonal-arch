@@ -1,4 +1,4 @@
-package com.lz.hexagonal.arch;
+package com.lz.hexagonal.arch.jpa;
 
 import lombok.Data;
 

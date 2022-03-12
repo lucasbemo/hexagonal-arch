@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.lz.hexagonal.arch'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 configurations {
 	compileOnly {

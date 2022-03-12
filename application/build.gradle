@@ -17,11 +17,13 @@ repositories {
     mavenCentral()
 }
 
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.0.1'
 
     runtimeOnly 'com.h2database:h2:2.1.210'
 
