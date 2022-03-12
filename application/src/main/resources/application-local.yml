@@ -1,9 +1,0 @@
-logging:
-  level:
-    root: WARN
-    br:
-      com:
-        lz:
-          hexagonal:
-            arch:
-              application: TRACE

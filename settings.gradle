@@ -1,4 +1,3 @@
 rootProject.name = 'hexagonal-arch'
-include 'domain'
-include 'application'
-
+include 'hexagonal-arch-domain'
+include 'hexagonal-arch-application'

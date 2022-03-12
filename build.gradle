@@ -1,21 +1,21 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.4'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
 group = 'com.lz.hexagonal.arch'
-version = '0.0.1-SNAPSHOT'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+version = '0.0.1'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 }
 
-dependencies {
+subprojects {
+	group = 'com.lz.hexagonal.arch'
+
+	apply plugin: 'java'
+
+	repositories {
+		mavenCentral()
+	}
 }

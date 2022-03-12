@@ -1,6 +1,0 @@
-spring:
-  main:
-    banner-mode: off
-  output:
-    ansi:
-      enabled: ALWAYS
