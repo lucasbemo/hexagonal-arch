@@ -1,8 +1,8 @@
-package com.lz.hexagonal.arch;
+package com.lz.hexagonal.arch.infra;
 
-import com.lz.hexagonal.arch.dto.ErrorDTO;
-import com.lz.hexagonal.arch.dto.FieldErrorDTO;
-import com.lz.hexagonal.arch.dto.OSErrorCodes;
+import com.lz.hexagonal.arch.infra.dto.ErrorDTO;
+import com.lz.hexagonal.arch.infra.dto.FieldErrorDTO;
+import com.lz.hexagonal.arch.infra.dto.OSErrorCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

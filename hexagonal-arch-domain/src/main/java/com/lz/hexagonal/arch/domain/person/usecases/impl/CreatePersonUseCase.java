@@ -1,20 +1,16 @@
 package com.lz.hexagonal.arch.domain.person.usecases.impl;
 
 import com.lz.hexagonal.arch.domain.person.models.Person;
-import com.lz.hexagonal.arch.domain.person.ports.ICreatePersonPort;
+import com.lz.hexagonal.arch.domain.person.ports.out.ICreatePersonPort;
+import com.lz.hexagonal.arch.domain.person.ports.commands.CreatedPersonPortCommand;
 import com.lz.hexagonal.arch.domain.person.usecases.ICreatePersonUseCase;
+import com.lz.hexagonal.arch.domain.person.usecases.commands.CreatePersonCommand;
 
-public class CreatePersonUseCase implements ICreatePersonUseCase {
-
-    private ICreatePersonPort repository;
-
-    public CreatePersonUseCase(final ICreatePersonPort repository) {
-        this.repository = repository;
-    }
+public record CreatePersonUseCase(ICreatePersonPort persistenceAdapter) implements ICreatePersonUseCase {
 
     @Override
-    public Person execute(final Person person) {
-
-        return repository.execute(person);
+    public Person execute(final CreatePersonCommand createPersonCommand) {
+        CreatedPersonPortCommand responsePort = persistenceAdapter.execute(createPersonCommand.getPerson());
+        return responsePort.toPerson();
     }
 }

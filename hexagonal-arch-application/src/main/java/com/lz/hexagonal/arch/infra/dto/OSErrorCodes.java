@@ -1,4 +1,4 @@
-package com.lz.hexagonal.arch.dto;
+package com.lz.hexagonal.arch.infra.dto;
 
 public enum OSErrorCodes {
     OS_ERROR_INVALID_ARGUMENTS(0);

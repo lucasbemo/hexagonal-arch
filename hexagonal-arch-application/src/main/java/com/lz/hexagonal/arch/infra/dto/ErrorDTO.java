@@ -1,4 +1,4 @@
-package com.lz.hexagonal.arch.dto;
+package com.lz.hexagonal.arch.infra.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

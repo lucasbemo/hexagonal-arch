@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="classicConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="localConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -11,7 +11,7 @@
 
     <springProfile name="local">
         <root level="INFO">
-            <appender-ref ref="classicConsoleAppender" />
+            <appender-ref ref="localConsoleAppender" />
         </root>
     </springProfile>
 
