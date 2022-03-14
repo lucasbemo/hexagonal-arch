@@ -25,7 +25,7 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
         if (listPersonCommand != null && listPersonCommand.getFilters() != null)
             personEntities = findAllWithSpecification(listPersonCommand);
         else
-            personEntities = findAllWithSpecification(listPersonCommand);
+            personEntities = findAll(listPersonCommand);
 
         return ListPaginablePersonResponse.builder()
                 .totalPages(personEntities.getTotalPages())
@@ -46,7 +46,8 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
     }
 
     public Pageable getPageble(final ListPersonCommand listPersonCommand) {
-        return PageRequest.of(listPersonCommand.getPage(), listPersonCommand.getSize(), Sort.by(listPersonCommand.getSort()));
+        return PageRequest.of(
+                listPersonCommand.getPage(), listPersonCommand.getSize(), Sort.by(listPersonCommand.getSort()));
     }
 
     public PersonSpecification getPersonSpecification(final ListPersonCommand listPersonCommand) {
