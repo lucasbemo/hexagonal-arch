@@ -15,6 +15,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public record ListPersonRepositoryAdapter(IListPaginationPersonRepository repository) implements IListPersonPort {
 
@@ -50,8 +52,25 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
                 listPersonCommand.getPage(), listPersonCommand.getSize(), Sort.by(listPersonCommand.getSort()));
     }
 
-    public PersonSpecification getPersonSpecification(final ListPersonCommand listPersonCommand) {
-        return new PersonSpecification(
-                new SearchCriteria("email", ":", "lucas@lucas.com"));
+    public Specification getPersonSpecification(final ListPersonCommand listPersonCommand) {
+        Specification specification = null;
+        int idx=0;
+
+        if (listPersonCommand.getFilters() == null || listPersonCommand.getFilters().size() <= 0)
+            return null;
+
+        for (Map.Entry<String, String> pair: listPersonCommand.getFilters().entrySet()) {
+            if (idx == 0) {
+                specification = Specification
+                        .where(new PersonSpecification(
+                                new SearchCriteria(pair.getKey(), ":", pair.getValue())));
+            }
+            else {
+                specification.and(new PersonSpecification(
+                        new SearchCriteria(pair.getKey(), ":", pair.getValue())));
+            }
+        };
+
+        return specification;
     }
 }
