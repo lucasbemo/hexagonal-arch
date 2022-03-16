@@ -1,9 +1,8 @@
-package com.lz.hexagonal.arch.person.in.web.adapter.dtos;
+package com.lz.hexagonal.arch.person.in.web.adapters.dtos;
 
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.person.mappers.PersonMapperImpl;
 import lombok.*;
-import org.mapstruct.Mapping;
 
 import javax.validation.constraints.NotBlank;
 
