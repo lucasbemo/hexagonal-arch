@@ -1,16 +1,14 @@
 package com.lz.hexagonal.arch.domain.person.usecases.impl;
 
-import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
 import com.lz.hexagonal.arch.domain.person.usecases.IListPersonUseCase;
 import com.lz.hexagonal.arch.domain.person.usecases.commands.ListPersonCommand;
-
-import java.util.List;
+import com.lz.hexagonal.arch.domain.person.usecases.response.ListPageablePersonResponse;
 
 public record ListPersonUseCase(IListPersonPort persistenceAdapter) implements IListPersonUseCase {
 
     @Override
-    public ListPaginablePersonResponse execute(final ListPersonCommand listPersonCommand) {
+    public ListPageablePersonResponse execute(final ListPersonCommand listPersonCommand) {
         return persistenceAdapter.execute(listPersonCommand);
     }
 }
