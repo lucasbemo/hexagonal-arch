@@ -34,7 +34,7 @@ public record PersonController(ICreatePersonUseCase createPersonUseCase, IListPe
         Person personCreated =  createPersonUseCase.execute(createPersonCommand);
 
         log.info("person_created", kv("person", personCreated));
-        return new ResponseEntity<Person>(personCreated, HttpStatus.CREATED);
+        return new ResponseEntity<>(personCreated, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -53,6 +53,6 @@ public record PersonController(ICreatePersonUseCase createPersonUseCase, IListPe
         ListPageablePersonResponse response = listPersonsUseCase.execute(new ListPersonCommand(page,size,sort,filters));
 
         log.info("person_listed", kv("response", response));
-        return new ResponseEntity<ListPageablePersonResponse>(response, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 }
