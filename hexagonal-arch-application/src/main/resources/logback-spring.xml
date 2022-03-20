@@ -10,7 +10,7 @@
     </appender>
 
     <springProfile name="local">
-        <root level="INFO">
+        <root level="TRACE">
             <appender-ref ref="localConsoleAppender" />
         </root>
     </springProfile>

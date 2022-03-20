@@ -24,7 +24,7 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
     public ListPageablePersonResponse execute(final ListPersonCommand listPersonCommand) {
         Page<PersonEntity> personEntities = null;
 
-        if (listPersonCommand != null && listPersonCommand.filters() != null)
+        if (listPersonCommand != null && listPersonCommand.getFilters() != null)
             personEntities = findAllWithSpecification(listPersonCommand);
         else
             personEntities = findAll(listPersonCommand);
@@ -49,17 +49,17 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
 
     public Pageable getPageable(final ListPersonCommand listPersonCommand) {
         return PageRequest.of(
-                listPersonCommand.page(), listPersonCommand.size(), Sort.by(listPersonCommand.sort()));
+                listPersonCommand.getPage(), listPersonCommand.getSize(), Sort.by(listPersonCommand.getSort()));
     }
 
-    public Specification getPersonSpecification(final ListPersonCommand listPersonCommand) {
-        Specification specification = null;
+    public Specification<PersonEntity> getPersonSpecification(final ListPersonCommand listPersonCommand) {
+        Specification<PersonEntity> specification = null;
         int idx=0;
 
-        if (listPersonCommand.filters() == null || listPersonCommand.filters().size() <= 0)
+        if (listPersonCommand.getFilters() == null || listPersonCommand.getFilters().size() <= 0)
             return null;
 
-        for (Map.Entry<String, String> pair: listPersonCommand.filters().entrySet()) {
+        for (Map.Entry<String, String> pair: listPersonCommand.getFilters().entrySet()) {
             if (idx == 0) {
                 specification = Specification
                         .where(new PersonSpecification(
@@ -69,8 +69,8 @@ public record ListPersonRepositoryAdapter(IListPaginationPersonRepository reposi
                 specification.and(new PersonSpecification(
                         new SearchCriteria(pair.getKey(), ":", pair.getValue())));
             }
+            idx++;
         };
-
         return specification;
     }
 }

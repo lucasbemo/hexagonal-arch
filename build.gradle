@@ -6,13 +6,16 @@ group = 'com.lz.hexagonal.arch'
 version = '0.0.1'
 sourceCompatibility = '17'
 
+ext {
+	springBootVersion = '2.6.4' // keep in sync with boot plugin
+}
+
 repositories {
 	mavenCentral()
 }
 
 subprojects {
 	group = 'com.lz.hexagonal.arch'
-
 	apply plugin: 'java'
 
 	repositories {
