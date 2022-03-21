@@ -1,24 +1,24 @@
 package com.lz.hexagonal.arch.domain.person.models;
 
-import lombok.Data;
-import lombok.ToString;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
-@ToString
-public class Person {
-    private final Long id;
-    private final String name;
-    private final String email;
-    private final int yearBirth;
-    private final LocalDateTime createAt;
-
-    public Person(final Long id, final String name, final String email, final int yearBirth, final LocalDateTime createAt) {
+public record Person(Long id, @NotBlank String name, @NotBlank String email,
+                     @NotBlank @CPF String cpf, @NotBlank String phone,
+                     @NotNull LocalDate birthDate, LocalDateTime createAt) {
+    public Person(
+            final Long id, final String name, final String email, String cpf,
+            final String phone, final LocalDate birthDate, final LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.yearBirth = yearBirth;
-        this.createAt = (createAt == null)? LocalDateTime.now(): createAt;
+        this.cpf = cpf;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.createAt = (createAt == null) ? LocalDateTime.now() : createAt;
     }
 }

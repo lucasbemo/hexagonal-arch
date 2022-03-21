@@ -1,5 +1,6 @@
 package com.lz.hexagonal.arch.domain.person.usecases.impl;
 
+import com.lz.hexagonal.arch.domain.infra.HexagonalNotFoundException;
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.domain.person.ports.out.ICreatePersonPort;
 import com.lz.hexagonal.arch.domain.person.usecases.ICreatePersonUseCase;
@@ -15,18 +16,18 @@ public record CreatePersonUseCase(
         ICreatePersonPort createAdapter, IFindPersonUseCase findPersonUseCase) implements ICreatePersonUseCase {
 
     @Override
-    public Person execute(final Person person) {
+    public Person execute(final Person person) throws HexagonalNotFoundException {
         log.info("person_creating", kv("person", person));
         Person personDB = null;
 
         try {
-            personDB = findPersonUseCase.executeFindByEmail(person.getEmail());
+            personDB = findPersonUseCase.executeFindByEmail(person.email());
         } catch (NoSuchElementException exception) {
             log.trace("person_creating", kv("isTherePerson", false));
         }
 
         if (personDB != null)
-            throw new IllegalArgumentException("person already exists with this email.");
+            throw new HexagonalNotFoundException("person already exists with this email.");
 
         Person personCreated = createAdapter.execute(person);
 

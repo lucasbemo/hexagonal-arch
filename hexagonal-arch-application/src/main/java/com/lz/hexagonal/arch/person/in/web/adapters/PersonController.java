@@ -1,5 +1,6 @@
 package com.lz.hexagonal.arch.person.in.web.adapters;
 
+import com.lz.hexagonal.arch.domain.infra.HexagonalNotFoundException;
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.domain.person.usecases.ICreatePersonUseCase;
 import com.lz.hexagonal.arch.domain.person.usecases.IListPersonUseCase;
@@ -21,7 +22,8 @@ import static net.logstash.logback.argument.StructuredArguments.kv;
 public record PersonController(ICreatePersonUseCase createPersonUseCase, IListPersonUseCase listPersonsUseCase) {
 
     @PostMapping
-    public ResponseEntity<Person> create(@RequestBody @Valid CreatePersonRequestWeb createPersonRequestWeb) {
+    public ResponseEntity<Person> create(@RequestBody @Valid CreatePersonRequestWeb createPersonRequestWeb)
+            throws HexagonalNotFoundException {
         log.info("person_creating", kv("person", createPersonRequestWeb));
 
         Person personCreated =  createPersonUseCase.execute(createPersonRequestWeb.toPerson());

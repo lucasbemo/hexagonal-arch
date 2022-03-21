@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;
@@ -20,16 +19,14 @@ public class FieldErrorDTO {
     private String field;
     private String message;
 
-    public static List<FieldErrorDTO> from(final MethodArgumentNotValidException exception) {
-        return exception
-                .getBindingResult()
-                .getFieldErrors()
+    public static List<FieldErrorDTO> from(final List<FieldError> fieldErrors) {
+        return fieldErrors
                 .stream()
                 .map(FieldErrorDTO::from)
                 .collect(Collectors.toList());
     }
 
-    public static FieldErrorDTO from(FieldError fieldError) {
+    public static FieldErrorDTO from(final FieldError fieldError) {
         return FieldErrorDTO.builder()
                 .field(fieldError.getField())
                 .message(fieldError.getDefaultMessage())

@@ -13,6 +13,6 @@ public record CreatePersonPersistenceAdapter(IPersonRepository repository) imple
     public Person execute(final Person person) {
         PersonEntity entity = PersonEntity.fromPersonWithoutId(person);
 
-        return entity.toPerson(repository.save(entity));
+        return repository.save(entity).toPerson();
     }
 }
