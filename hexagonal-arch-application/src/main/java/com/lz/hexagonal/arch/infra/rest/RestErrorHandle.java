@@ -1,10 +1,10 @@
 package com.lz.hexagonal.arch.infra.rest;
 
 import com.lz.hexagonal.arch.domain.infra.HexagonalNotFoundException;
+import com.lz.hexagonal.arch.domain.infra.ErrorCodes;
 import com.lz.hexagonal.arch.infra.rest.dto.ErrorDTO;
 import com.lz.hexagonal.arch.infra.rest.dto.ErrorFieldsDTO;
 import com.lz.hexagonal.arch.infra.rest.dto.FieldErrorDTO;
-import com.lz.hexagonal.arch.infra.rest.dto.OSErrorCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +41,7 @@ public class RestErrorHandle {
             message = exception.getCause().getCause().getLocalizedMessage();
 
         return buildResponse(ErrorDTO
-                        .from(BAD_REQUEST, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS, message)
+                        .from(BAD_REQUEST, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, message)
                 , BAD_REQUEST);
     }
 
@@ -57,7 +57,7 @@ public class RestErrorHandle {
 
         return buildResponse(ErrorFieldsDTO.from(
                                 BAD_REQUEST,
-                                OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS,
+                                ErrorCodes.OS_ERROR_INVALID_ARGUMENTS,
                                 "Invalid Arguments",
                                 fieldErrorDTO)
                 , BAD_REQUEST);
@@ -72,15 +72,24 @@ public class RestErrorHandle {
         List<FieldErrorDTO> fieldErrorDTO = FieldErrorDTO.from(exception.getConstraintViolations());
 
         return buildResponse(ErrorFieldsDTO
-                .from(BAD_REQUEST, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS,"Invalid Arguments", fieldErrorDTO)
+                .from(BAD_REQUEST, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS,"Invalid Arguments", fieldErrorDTO)
                 , BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HexagonalNotFoundException.class)
+    @ResponseStatus(CONFLICT)
+    public ResponseEntity<ErrorDTO> handleHexagonalNotFoundException(HexagonalNotFoundException exception) {
+        log.error("HexagonalNotFoundException", exception);
+        return buildResponse(ErrorDTO
+                        .from(CONFLICT, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
+                , CONFLICT);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorDTO> handleIllegalArgumentException(IllegalArgumentException exception) {
         log.error("handleIllegalArgumentException", exception);
         return buildResponse(ErrorDTO
-                        .from(INTERNAL_SERVER_ERROR, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
+                        .from(INTERNAL_SERVER_ERROR, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
                 , INTERNAL_SERVER_ERROR);
     }
 
@@ -89,17 +98,8 @@ public class RestErrorHandle {
     public ResponseEntity<ErrorDTO> handleNoSuchElementException(NoSuchElementException exception) {
         log.error("handleNoSuchElementException", exception);
         return buildResponse(ErrorDTO
-                        .from(INTERNAL_SERVER_ERROR, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
+                        .from(INTERNAL_SERVER_ERROR, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
                 , INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(HexagonalNotFoundException.class)
-    @ResponseStatus(CONFLICT)
-    public ResponseEntity<ErrorDTO> handleHexagonalNotFoundException(HexagonalNotFoundException exception) {
-        log.error("HexagonalNotFoundException", exception);
-        return buildResponse(ErrorDTO
-                        .from(CONFLICT, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
-                , CONFLICT);
     }
 
     @ExceptionHandler(Exception.class)
@@ -107,16 +107,16 @@ public class RestErrorHandle {
     public ResponseEntity<ErrorDTO> handleException(Exception exception) {
         log.error("handleException", exception);
         return buildResponse(ErrorDTO
-                .from(INTERNAL_SERVER_ERROR, OSErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
+                .from(INTERNAL_SERVER_ERROR, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
                 , INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ErrorDTO> buildResponse(final ErrorDTO errorDTO, final HttpStatus httpStatus) {
-        return new ResponseEntity<ErrorDTO>(errorDTO, httpStatus);
+        return new ResponseEntity<>(errorDTO, httpStatus);
     }
 
     private ResponseEntity<ErrorFieldsDTO> buildResponse(
             final ErrorFieldsDTO errorFieldsDTO, final HttpStatus httpStatus) {
-        return new ResponseEntity<ErrorFieldsDTO>(errorFieldsDTO, httpStatus);
+        return new ResponseEntity<>(errorFieldsDTO, httpStatus);
     }
 }

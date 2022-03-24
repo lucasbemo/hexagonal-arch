@@ -1,6 +1,7 @@
 package com.lz.hexagonal.arch.infra.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lz.hexagonal.arch.domain.infra.ErrorCodes;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,12 +16,12 @@ import java.time.LocalDateTime;
 @Builder
 public class ErrorDTO {
     private int code;
-    private OSErrorCodes error;
+    private ErrorCodes error;
     private String message;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private LocalDateTime timestamp;
 
-    public static ErrorDTO from(final HttpStatus httpStatus, final OSErrorCodes oSErrorCode, final String message) {
+    public static ErrorDTO from(final HttpStatus httpStatus, final ErrorCodes oSErrorCode, final String message) {
         return ErrorDTO.builder()
                 .code(httpStatus.value())
                 .error(oSErrorCode)
