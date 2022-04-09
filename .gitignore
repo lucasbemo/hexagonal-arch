@@ -1,11 +1,20 @@
+### Mac ###
 .DS_Store
-!**/build/
 
+### Gradle ###
 .gradle
+!**/build/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+### Maven ###
+!**/target/
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated

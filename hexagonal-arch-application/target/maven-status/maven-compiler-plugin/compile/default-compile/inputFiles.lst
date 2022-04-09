@@ -1,9 +1,0 @@
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/infra/UseCaseConfig.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/infra/rest/dto/ErrorFieldsDTO.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/person/mappers/PersonApplicationMapper.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/Application.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/person/in/web/adapters/PersonController.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/infra/rest/dto/FieldErrorDTO.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/infra/rest/dto/ErrorDTO.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/infra/rest/RestErrorHandle.java
-/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-application/src/main/java/com/lz/hexagonal/arch/person/in/web/adapters/dtos/CreatePersonRequestWeb.java
