@@ -18,8 +18,8 @@ Insert a Person:
     "email": "lucas@empresa.com",
     "yearBirth": 1990,
     "birthDate": "1990-12-13",
-    "cpf": "37141259813",
-    "phone": "(55)11982188120"
+    "cpf": "63234630089",
+    "phone": "(55)11993188120"
 }
 ```
 
@@ -31,6 +31,6 @@ Insert a Person:
     "yearBirth": 1990,
     "birthDate": "1990-12-13",
     "cpf": "13870994002",
-    "phone": "(55)11982188121"
+    "phone": "(55)11962184121"
 }
 ```
