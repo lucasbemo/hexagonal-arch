@@ -2,11 +2,11 @@ package com.lz.hexagonal.arch.person.in.web.adapters.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lz.hexagonal.arch.domain.person.models.Person;
-import com.lz.hexagonal.arch.person.mappers.PersonMapperImpl;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import com.lz.hexagonal.arch.person.mappers.PersonApplicationMapperImpl;
 
 public record CreatePersonRequestWeb(
         @Size(min = 5, max = 100, message = "name must be between 5 and 100 characters")
@@ -24,6 +24,6 @@ public record CreatePersonRequestWeb(
         @NotNull int yearBirth) {
 
     public Person toPerson() {
-        return new PersonMapperImpl().toPerson(this);
+        return new PersonApplicationMapperImpl().toPerson(this);
     }
 }

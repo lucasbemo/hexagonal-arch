@@ -81,8 +81,7 @@ public class RestErrorHandle {
     public ResponseEntity<ErrorDTO> handleHexagonalNotFoundException(HexagonalNotFoundException exception) {
         log.error("HexagonalNotFoundException", exception);
         return buildResponse(ErrorDTO
-                        .from(CONFLICT, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage())
-                , CONFLICT);
+                        .from(CONFLICT, ErrorCodes.OS_ERROR_INVALID_ARGUMENTS, exception.getMessage()), CONFLICT);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

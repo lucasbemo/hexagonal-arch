@@ -1,0 +1,9 @@
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/adapter/CreatePersonPersistenceAdapter.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/specifications/SearchCriteria.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/specifications/PersonSpecification.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/adapter/FindPersonAdapter.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/entities/PersonEntity.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/repository/IListPaginationPersonRepository.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/adapter/ListPersonRepositoryAdapter.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/persistence/repository/IPersonRepository.java
+/Users/lucaszamboni/workspace/hexagonal-arch/hexagonal-arch-repo/hexagonal-arch-repo-mysql/src/main/java/com/lz/hexagonal/arch/repo/mysql/person/mappers/PersonMapper.java

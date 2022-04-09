@@ -10,8 +10,12 @@ import com.lz.hexagonal.arch.domain.person.usecases.impl.CreatePersonUseCase;
 import com.lz.hexagonal.arch.domain.person.usecases.impl.FindPersonUseCase;
 import com.lz.hexagonal.arch.domain.person.usecases.impl.ListPersonUseCase;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+@PropertySource("classpath:application-repo-${spring.profiles.active}.properties")
+@ComponentScan("com.lz.hexagonal.arch.repo.mysql")
 @Configuration
 public class UseCaseConfig {
 
