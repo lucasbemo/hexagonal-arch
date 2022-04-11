@@ -5,7 +5,7 @@ A Hexagonal Arch Model Project
 
 * Clone this repository
 * Make sure you are using JDK 17
-* Buildthe app
+* Build the app
     ```
         ./mvnw clean package
         ## OR
