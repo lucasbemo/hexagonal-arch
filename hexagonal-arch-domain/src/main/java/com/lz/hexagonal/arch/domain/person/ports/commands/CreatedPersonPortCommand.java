@@ -9,5 +9,4 @@ public class CreatedPersonPortCommand {
     private long id;
     private String name;
     private String email;
-
 }
