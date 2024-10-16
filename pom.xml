@@ -11,7 +11,7 @@
     <modules>
         <module>hexagonal-arch-application</module>
         <module>hexagonal-arch-domain</module>
-        <module>hexagonal-arch-repo/hexagonal-arch-repo-mysql</module>
+        <module>hexagonal-arch-repo-mysql</module>
     </modules>
 
 </project>

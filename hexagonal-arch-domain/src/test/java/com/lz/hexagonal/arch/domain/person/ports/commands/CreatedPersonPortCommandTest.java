@@ -10,8 +10,8 @@ public class CreatedPersonPortCommandTest {
         var createdPersonPortCommand = new CreatedPersonPortCommand(
                 1L, "Fulano", "fulano@email.com");
 
-        Assertions.assertEquals(createdPersonPortCommand.getId(), 1L);
-        Assertions.assertEquals(createdPersonPortCommand.getName(), "Fulano");
-        Assertions.assertEquals(createdPersonPortCommand.getEmail(), "fulano@email.com");
+        Assertions.assertEquals(createdPersonPortCommand.id(), 1L);
+        Assertions.assertEquals(createdPersonPortCommand.name(), "Fulano");
+        Assertions.assertEquals(createdPersonPortCommand.email(), "fulano@email.com");
     }
 }

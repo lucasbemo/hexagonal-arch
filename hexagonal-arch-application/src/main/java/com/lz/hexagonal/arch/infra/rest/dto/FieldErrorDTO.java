@@ -1,23 +1,15 @@
 package com.lz.hexagonal.arch.infra.rest.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.ConstraintViolation;
 import org.springframework.validation.FieldError;
 
-import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class FieldErrorDTO {
-    private String field;
-    private String message;
+public record FieldErrorDTO (
+    String field,
+    String message) {
 
     public static List<FieldErrorDTO> from(final List<FieldError> fieldErrors) {
         return fieldErrors
@@ -27,13 +19,14 @@ public class FieldErrorDTO {
     }
 
     public static FieldErrorDTO from(final FieldError fieldError) {
-        return FieldErrorDTO.builder()
-                .field(fieldError.getField())
-                .message(fieldError.getDefaultMessage())
-                .build();
+        return new FieldErrorDTO(fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     public static List<FieldErrorDTO> from(Set<ConstraintViolation<?>> constraintViolations) {
+        return null;
+    }
+
+    public static FieldErrorDTO from(ConstraintViolation<?> constraintViolation) {
         return null;
     }
 }
