@@ -1,11 +1,12 @@
 package com.lz.hexagonal.arch.domain.infra;
 
-public enum ErrorCodes {
-    OS_ERROR_INVALID_ARGUMENTS(0);
+public enum HexagonalErrorCodes {
+    HA_ERROR_INVALID_ARGUMENTS(0),
+    HA_ERROR_CONSTRAINT_VIOLATION(1);
 
     private final int value;
 
-    ErrorCodes(final int code) {
+    HexagonalErrorCodes(final int code) {
         this.value = code;
     }
 

@@ -102,4 +102,17 @@ public class Person {
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", createAt=" + createAt +
+                '}';
+    }
 }

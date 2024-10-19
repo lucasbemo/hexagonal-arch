@@ -3,11 +3,9 @@ package com.lz.hexagonal.arch.application.person.adapters.in.web;
 import com.lz.hexagonal.arch.application.person.adapters.in.web.dtos.CreatePersonRequestWeb;
 import com.lz.hexagonal.arch.application.person.usecases.ICreatePersonUseCase;
 import com.lz.hexagonal.arch.application.person.usecases.IListPersonUseCase;
-import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalException;
-import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalNotFoundException;
-import com.lz.hexagonal.arch.domain.person.models.Person;
-import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
 import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.models.Person;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +22,11 @@ public record PersonController(ICreatePersonUseCase createPersonUseCase, IListPe
     @PostMapping
     public ResponseEntity<Person> create(@RequestBody @Valid CreatePersonRequestWeb createPersonRequestWeb)
             throws Exception {
-        logger.info("person_creating", createPersonRequestWeb);
+        logger.info("person_creating {}", createPersonRequestWeb);
 
         Person personCreated =  createPersonUseCase.execute(createPersonRequestWeb.toPerson());
 
-        logger.info("person_created", personCreated);
+        logger.info("person_created {}", personCreated);
         return new ResponseEntity<>(personCreated, HttpStatus.CREATED);
     }
 

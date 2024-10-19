@@ -1,5 +1,6 @@
 package com.lz.hexagonal.arch.repo.mysql.person.adapter;
 
+import com.lz.hexagonal.arch.domain.infra.HexagonalErrorCodes;
 import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalException;
 import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalInternalException;
 import com.lz.hexagonal.arch.domain.person.models.Person;
@@ -31,7 +32,9 @@ public record CreatePersonPersistenceAdapter(IPersonRepository repository) imple
             }
             throw transactionSystemException;
         } catch (Exception exception) {
-            throw new HexagonalInternalException("Error creating person", exception.fillInStackTrace());
+            throw new HexagonalInternalException(
+                    "An unexpected error occurred while creating person"
+                    , exception.fillInStackTrace(), HexagonalErrorCodes.HA_ERROR_CONSTRAINT_VIOLATION);
         }
     }
 }

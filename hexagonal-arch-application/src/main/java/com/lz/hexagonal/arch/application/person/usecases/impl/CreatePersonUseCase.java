@@ -17,22 +17,7 @@ public record CreatePersonUseCase(
 
     @Override
     public Person execute(final Person person) throws HexagonalException {
-        logger.info("person_creating {}", person);
-
-        Person personDB = null;
-
-//        try {
-//            personDB = findPersonUseCase.executeFindByEmail(person.getEmail());
-//        } catch (NoSuchElementException exception) {
-//            logger.trace("person_creating There isn't Person with this email.");
-//        }
-//        if (personDB != null)
-//            throw new HexagonalResourceConflictException("person already exists with this email.");
-
         Person personCreated = createAdapter.execute(person);
-
-        logger.info("person_created {}", personCreated);
-
         return personCreated;
     }
 }
