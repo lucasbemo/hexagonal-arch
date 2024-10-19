@@ -30,12 +30,12 @@ public class PersonTest {
         var person = new Person(
                 1L, "fulano", "fulano@email.com",
                 "12345678913", "11999999999", birthDate, createdAt);
-        Assertions.assertEquals(person.createAt(), createdAt);
-        Assertions.assertEquals(person.birthDate(), birthDate);
-        Assertions.assertEquals(person.phone(), "11999999999");
-        Assertions.assertEquals(person.cpf(), "12345678913");
-        Assertions.assertEquals(person.email(), "fulano@email.com");
-        Assertions.assertEquals(person.name(), "fulano");
-        Assertions.assertEquals(person.id(), 1L);
+        Assertions.assertEquals(person.getCreateAt(), createdAt);
+        Assertions.assertEquals(person.getBirthDate(), birthDate);
+        Assertions.assertEquals(person.getPhone(), "11999999999");
+        Assertions.assertEquals(person.getCpf(), "12345678913");
+        Assertions.assertEquals(person.getEmail(), "fulano@email.com");
+        Assertions.assertEquals(person.getName(), "fulano");
+        Assertions.assertEquals(person.getId(), 1L);
     }
 }

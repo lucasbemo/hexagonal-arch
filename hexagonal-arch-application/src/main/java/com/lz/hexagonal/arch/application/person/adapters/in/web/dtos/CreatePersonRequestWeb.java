@@ -14,7 +14,7 @@ public record CreatePersonRequestWeb(
         String name,
         @Size(min = 5, max = 100, message = "email must be between 5 and 100 characters")
         @NotBlank @Email String email,
-        @NotBlank @CPF String cpf,
+        @NotBlank  String cpf,
         @Size(min = 5, max = 100, message = "phone must be between 5 and 100 characters")
         @NotBlank String phone,
         @JsonFormat(pattern="yyyy-MM-dd")

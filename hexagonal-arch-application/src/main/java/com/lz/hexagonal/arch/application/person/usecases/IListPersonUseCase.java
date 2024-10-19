@@ -1,8 +1,8 @@
 package com.lz.hexagonal.arch.application.person.usecases;
 
-import com.lz.hexagonal.arch.domain.person.usecase.commands.ListPersonCommand;
-import com.lz.hexagonal.arch.domain.person.usecase.response.ListPageablePersonResponse;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
 
 public interface IListPersonUseCase {
-    ListPageablePersonResponse execute(final ListPersonCommand listPersonCommand);
+    ListPageablePersonDTO execute(final ListPersonDTO listPersonDTO);
 }

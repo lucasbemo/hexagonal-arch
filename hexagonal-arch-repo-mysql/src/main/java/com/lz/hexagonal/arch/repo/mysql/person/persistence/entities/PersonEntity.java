@@ -8,10 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 
 @Entity
 public class PersonEntity {
@@ -45,18 +43,25 @@ public class PersonEntity {
     @Column(nullable = false)
     private LocalDateTime createAt;
 
+    @NotNull
+    @Column(nullable = false)
+    private LocalDateTime updateAt;
+
     public PersonEntity() {
     }
 
     public PersonEntity(
             long id, String name, String email, String cpf, String phone, LocalDate birthDate, LocalDateTime createAt) {
-        this.id = id;
+        if (id == 0)
+            this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.phone = phone;
         this.birthDate = birthDate;
-        this.createAt = createAt;
+        if (this.createAt == null)
+            this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 
     public long getId() {
@@ -115,22 +120,18 @@ public class PersonEntity {
         this.createAt = createAt;
     }
 
-    public static PersonEntity fromPerson(final Person person) {
-        return new PersonEntity(
-                person.id(), person.name(), person.email(), person.cpf(),
-                person.phone(), person.birthDate(), person.createAt());
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
     }
 
-    public static PersonEntity fromPersonWithoutId(final Person person) {
-        PersonEntity entity = new PersonEntity();
-        entity.setBirthDate(person.birthDate());
-        entity.setCreateAt(person.createAt());
-        entity.setEmail(person.email());
-        entity.setName(person.name());
-        entity.setPhone(person.phone());
-        entity.setCpf(person.cpf());
-        entity.createAt = LocalDateTime.now();
-        return entity;
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public static PersonEntity fromPerson(final Person person) {
+        return new PersonEntity(
+                (person.getId() == null? 0: person.getId()), person.getName(), person.getEmail(), person.getCpf(),
+                person.getPhone(), person.getBirthDate(), person.getCreateAt());
     }
 
     public Person toPerson() {

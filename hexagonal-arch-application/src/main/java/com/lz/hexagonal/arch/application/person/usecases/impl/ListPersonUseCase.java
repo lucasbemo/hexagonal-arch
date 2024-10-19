@@ -2,15 +2,15 @@ package com.lz.hexagonal.arch.application.person.usecases.impl;
 
 import com.lz.hexagonal.arch.application.person.usecases.IListPersonUseCase;
 import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
-import com.lz.hexagonal.arch.domain.person.usecase.commands.ListPersonCommand;
-import com.lz.hexagonal.arch.domain.person.usecase.response.ListPageablePersonResponse;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
 import org.springframework.stereotype.Service;
 
 @Service
 public record ListPersonUseCase(IListPersonPort persistenceAdapter) implements IListPersonUseCase {
 
     @Override
-    public ListPageablePersonResponse execute(final ListPersonCommand listPersonCommand) {
-        return persistenceAdapter.execute(listPersonCommand);
+    public ListPageablePersonDTO execute(final ListPersonDTO listPersonDTO) {
+        return persistenceAdapter.execute(listPersonDTO);
     }
 }

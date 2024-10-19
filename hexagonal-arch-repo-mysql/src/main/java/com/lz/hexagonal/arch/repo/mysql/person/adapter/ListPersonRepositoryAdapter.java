@@ -1,14 +1,13 @@
 package com.lz.hexagonal.arch.repo.mysql.person.adapter;
 
-import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
-import com.lz.hexagonal.arch.domain.person.usecase.commands.ListPersonCommand;
-import com.lz.hexagonal.arch.domain.person.usecase.response.ListPageablePersonResponse;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
+import com.lz.hexagonal.arch.repo.mysql.person.infra.mappers.PersonMapper;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.entities.PersonEntity;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.repository.IListPaginationPersonRepository;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.PersonSpecification;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.SearchCriteria;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,49 +20,49 @@ import java.util.stream.Collectors;
 
 @Service
 public record ListPersonRepositoryAdapter(
-        IListPaginationPersonRepository repository, ModelMapper modelMapper) implements IListPersonPort {
+        IListPaginationPersonRepository repository, PersonMapper personMapper) implements IListPersonPort {
 
     @Override
-    public ListPageablePersonResponse execute(final ListPersonCommand listPersonCommand) {
+    public ListPageablePersonDTO execute(final ListPersonDTO listPersonDTO) {
         Page<PersonEntity> personEntities = null;
 
-        if (listPersonCommand != null && listPersonCommand.getFilters() != null)
-            personEntities = findAllWithSpecification(listPersonCommand);
+        if (listPersonDTO != null && listPersonDTO.getFilters() != null)
+            personEntities = findAllWithSpecification(listPersonDTO);
         else
-            personEntities = findAll(listPersonCommand);
+            personEntities = findAll(listPersonDTO);
 
-        return new ListPageablePersonResponse(
+        return new ListPageablePersonDTO(
                 personEntities.getTotalPages(),
                 personEntities.getTotalElements(),
                 personEntities.getSort().toString(),
                 personEntities.getContent().stream()
-                        .map(personEntity -> modelMapper.map(personEntity, Person.class))
+                        .map(personEntity -> personMapper.toPerson(personEntity))
                         .collect(Collectors.toList()));
     }
 
-    public Page<PersonEntity> findAllWithSpecification(final ListPersonCommand listPersonCommand) {
+    public Page<PersonEntity> findAllWithSpecification(final ListPersonDTO listPersonDTO) {
         return repository.findAll(
-                Specification.where(getPersonSpecification(listPersonCommand)),
-                getPageable(listPersonCommand));
+                Specification.where(getPersonSpecification(listPersonDTO)),
+                getPageable(listPersonDTO));
     }
 
-    public Page<PersonEntity> findAll(final ListPersonCommand listPersonCommand) {
-        return repository.findAll(getPageable(listPersonCommand));
+    public Page<PersonEntity> findAll(final ListPersonDTO listPersonDTO) {
+        return repository.findAll(getPageable(listPersonDTO));
     }
 
-    public Pageable getPageable(final ListPersonCommand listPersonCommand) {
+    public Pageable getPageable(final ListPersonDTO listPersonDTO) {
         return PageRequest.of(
-                listPersonCommand.page(), listPersonCommand.size(), Sort.by(listPersonCommand.sort()));
+                listPersonDTO.page(), listPersonDTO.size(), Sort.by(listPersonDTO.sort()));
     }
 
-    public Specification<PersonEntity> getPersonSpecification(final ListPersonCommand listPersonCommand) {
+    private Specification<PersonEntity> getPersonSpecification(final ListPersonDTO listPersonDTO) {
         Specification<PersonEntity> specification = null;
         int idx=0;
 
-        if (listPersonCommand.getFilters() == null || listPersonCommand.getFilters().size() <= 0)
+        if (listPersonDTO.getFilters() == null || listPersonDTO.getFilters().size() <= 0)
             return null;
 
-        for (Map.Entry<String, String> pair: listPersonCommand.getFilters().entrySet()) {
+        for (Map.Entry<String, String> pair: listPersonDTO.getFilters().entrySet()) {
             if (idx == 0) {
                 specification = Specification
                         .where(new PersonSpecification(

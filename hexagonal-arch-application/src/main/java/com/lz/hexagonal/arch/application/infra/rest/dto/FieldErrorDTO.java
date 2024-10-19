@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record FieldErrorDTO (
-    String field,
-    String message) {
+public record FieldErrorDTO (String field, String message) {
 
     public static List<FieldErrorDTO> from(final List<FieldError> fieldErrors) {
         return fieldErrors
@@ -23,10 +21,12 @@ public record FieldErrorDTO (
     }
 
     public static List<FieldErrorDTO> from(Set<ConstraintViolation<?>> constraintViolations) {
-        return null;
+        return constraintViolations.stream().map(item -> {
+            return new FieldErrorDTO(item.getPropertyPath().toString(), item.getMessage());
+        }).collect(Collectors.toList());
     }
 
     public static FieldErrorDTO from(ConstraintViolation<?> constraintViolation) {
-        return null;
+        return new FieldErrorDTO(constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage());
     }
 }

@@ -1,10 +1,10 @@
-package com.lz.hexagonal.arch.domain.person.usecase.commands;
+package com.lz.hexagonal.arch.domain.person.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.Map;
 
-public record ListPersonCommand (
+public record ListPersonDTO(
         @NotBlank int page,
         @NotBlank int size,
         String sort,
@@ -13,7 +13,7 @@ public record ListPersonCommand (
 
     private static Map<String, String> filters;
 
-    public ListPersonCommand {
+    public ListPersonDTO {
         getListPageableFilters(name, email);
     }
 

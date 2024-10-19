@@ -14,18 +14,18 @@ public record FindPersonUseCase(IFindPersonPort findPersonPort) implements IFind
 
     @Override
     public Person execute(final long id) {
-        logger.info("person_finding", id);
+        logger.info("person_finding {}", id);
         Person person = findPersonPort.execute(id);
-        logger.info("person_found", id, person);
+        logger.info("person_found {} {}", id, person);
 
         return person;
     }
 
     @Override
     public Person executeFindByEmail(final String email) {
-        logger.info("person_findingByEmail", email);
+        logger.info("person_findingByEmail {}", email);
         Person person = findPersonPort.executeFindByEmail(email);
-        logger.info("person_found", email, person);
+        logger.info("person_found {} {}", email, person);
 
         return person;
     }
