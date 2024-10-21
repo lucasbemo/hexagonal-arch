@@ -13,9 +13,9 @@ public record ErrorDTO (
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     LocalDateTime timestamp,
     String path) {
-
     public static ErrorDTO from(
-            final HttpStatus httpStatus, final HexagonalErrorCodes oSErrorCode, final String message, final String path) {
+            final HttpStatus httpStatus, final HexagonalErrorCodes oSErrorCode, final String message, final String path
+    ) {
         return new ErrorDTO(httpStatus.value(), oSErrorCode, message, LocalDateTime.now(), path);
     }
 }

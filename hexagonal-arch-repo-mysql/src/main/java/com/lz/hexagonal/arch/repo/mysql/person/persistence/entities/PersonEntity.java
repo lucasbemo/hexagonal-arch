@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -136,5 +137,19 @@ public class PersonEntity {
 
     public Person toPerson() {
         return new Person(id, name, email, cpf, phone, birthDate, createAt);
+    }
+
+    @Override
+    public String toString() {
+        return "PersonEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                '}';
     }
 }

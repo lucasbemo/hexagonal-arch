@@ -1,13 +1,13 @@
 package com.lz.hexagonal.arch.repo.mysql.person.adapter;
 
-import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
-import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
-import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
 import com.lz.hexagonal.arch.repo.mysql.person.infra.mappers.PersonMapper;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.entities.PersonEntity;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.repository.IListPaginationPersonRepository;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.PersonSpecification;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.SearchCriteria;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lz.hexagonal.arch.application.infra.mappers.PersonApplicationMapperImpl;
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 

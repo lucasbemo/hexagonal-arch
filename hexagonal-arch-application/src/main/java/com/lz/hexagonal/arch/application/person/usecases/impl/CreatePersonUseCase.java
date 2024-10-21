@@ -5,19 +5,25 @@ import com.lz.hexagonal.arch.application.person.usecases.IFindPersonUseCase;
 import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalException;
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import com.lz.hexagonal.arch.domain.person.ports.out.ICreatePersonPort;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 @Service
-public record CreatePersonUseCase(
-        ICreatePersonPort createAdapter, IFindPersonUseCase findPersonUseCase) implements ICreatePersonUseCase {
+public class CreatePersonUseCase implements ICreatePersonUseCase {
+    static final Logger logger = LoggerFactory.getLogger(CreatePersonUseCase.class);
+    private ICreatePersonPort createAdapter;
 
-    static final Logger logger = LoggerFactory.getLogger(CreatePersonUseCase.class.getClassLoader().getName());
+    @Autowired
+    public CreatePersonUseCase(final ICreatePersonPort createAdapter) {
+        this.createAdapter = createAdapter;
+    }
 
     @Override
-    public Person execute(final Person person) throws HexagonalException {
-        Person personCreated = createAdapter.execute(person);
-        return personCreated;
+    public Person execute(@Valid final Person person) throws HexagonalException {
+        return createAdapter.execute(person);
     }
 }

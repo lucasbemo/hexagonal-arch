@@ -152,8 +152,8 @@ public class ExceptionsHandler {
     public ResponseEntity<ErrorDTO> handleException(Exception exception, HttpServletRequest request) {
         logger.error("handleException", exception);
         return buildResponse(
-                ErrorDTO.from(INTERNAL_SERVER_ERROR, HexagonalErrorCodes.HA_ERROR_INVALID_ARGUMENTS
-                        , exception.getMessage(), request.getRequestURI()), INTERNAL_SERVER_ERROR);
+                ErrorDTO.from(INTERNAL_SERVER_ERROR, HexagonalErrorCodes.HA_ERROR_INTERNAL_ERROR
+                        , "An unexpected error occurred.", request.getRequestURI()), INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ErrorDTO> buildResponse(final ErrorDTO errorDTO, final HttpStatus httpStatus) {

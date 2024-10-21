@@ -8,22 +8,33 @@ import com.lz.hexagonal.arch.domain.person.ports.out.ICreatePersonPort;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.entities.PersonEntity;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.repository.IPersonRepository;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionSystemException;
+import org.springframework.validation.annotation.Validated;
 
+@Validated
 @Service
-public record CreatePersonPersistenceAdapter(IPersonRepository repository) implements ICreatePersonPort {
-
+public class CreatePersonPersistenceAdapter implements ICreatePersonPort {
     static final Logger logger = LoggerFactory.getLogger(CreatePersonPersistenceAdapter.class);
+    private final IPersonRepository repository;
+
+    @Autowired
+    public CreatePersonPersistenceAdapter(final IPersonRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public Person execute(final Person person) throws HexagonalException {
+    public Person execute(@Valid final Person person) throws HexagonalException {
         try {
             PersonEntity entity = PersonEntity.fromPerson(person);
 
-            return repository.save(entity).toPerson();
+            var entityDB = repository.save(entity).toPerson();
+            logger.info("Person saved: {}", entityDB);
+            return entityDB;
         } catch (TransactionSystemException transactionSystemException) {
             if (transactionSystemException.getRootCause() instanceof ConstraintViolationException) {
                 ConstraintViolationException validationException = (ConstraintViolationException)
