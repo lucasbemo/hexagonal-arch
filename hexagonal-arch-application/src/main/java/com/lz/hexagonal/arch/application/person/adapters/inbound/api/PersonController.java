@@ -1,6 +1,6 @@
-package com.lz.hexagonal.arch.application.person.adapters.in.web;
+package com.lz.hexagonal.arch.application.person.adapters.inbound.api;
 
-import com.lz.hexagonal.arch.application.person.adapters.in.web.dtos.CreatePersonRequestWeb;
+import com.lz.hexagonal.arch.application.person.adapters.inbound.api.dtos.CreatePersonRequestWeb;
 import com.lz.hexagonal.arch.application.person.usecases.ICreatePersonUseCase;
 import com.lz.hexagonal.arch.application.person.usecases.IListPersonUseCase;
 import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PersonEntityCsvLoader {
     private final String filePath = "people.csv";
@@ -52,7 +53,7 @@ public class PersonEntityCsvLoader {
 
         // Assuming you have a method to parse LocalDate from String
         return new Person(
-                Long.parseLong(id), name, email, cpf, phone, LocalDate.parse(birthDateStr)
+                UUID.fromString(id), name, email, cpf, phone, LocalDate.parse(birthDateStr)
                 , LocalDateTime.parse(createdAt, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 }

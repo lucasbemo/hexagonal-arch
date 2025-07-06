@@ -4,8 +4,6 @@ import com.lz.hexagonal.arch.domain.infra.PersonCsvLoader;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,8 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonTests {
 
@@ -44,42 +41,37 @@ public class PersonTests {
     }
 
     public static void validate() {
-//        ValidatorFactory factory = Validation.byDefaultProvider()
-//                .configure()
-//                .messageInterpolator(new ParameterMessageInterpolator())
-//                .buildValidatorFactory();
-//        validator = factory.usingContext().getValidator();
         validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
-    
+
     @Test
     public void when_createPerson_expect_success() {
         var person = new Person(
-                people.get(0).getId(), people.get(0).getName(), people.get(0).getEmail(), people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
+                people.get(0).id(), people.get(0).name(), people.get(0).email(), people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
 
-        assertEquals(person.getId(),  people.get(0).getId());
-        assertEquals(person.getName(), people.get(0).getName());
-        assertEquals(person.getEmail(), people.get(0).getEmail());
-        assertEquals(person.getCpf(), people.get(0).getCpf());
-        assertEquals(person.getPhone(), people.get(0).getPhone());
-        assertEquals(person.getBirthDate(), people.get(0).getBirthDate());
-        assertEquals(person.getCreateAt(), people.get(0).getCreateAt());
+        assertEquals(person.id(),  people.get(0).id());
+        assertEquals(person.name(), people.get(0).name());
+        assertEquals(person.email(), people.get(0).email());
+        assertEquals(person.cpf(), people.get(0).cpf());
+        assertEquals(person.phone(), people.get(0).phone());
+        assertEquals(person.birthDate(), people.get(0).birthDate());
+        assertEquals(person.createAt(), people.get(0).createAt());
     }
 
     @Test
     public void when_createPersonWithoutId_expect_inputValuesIsSameAttributes() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
+                null, people.get(0).name(), people.get(0).email(), people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 
     @Test
@@ -88,179 +80,161 @@ public class PersonTests {
         assertEquals(2, 2, "1 + 1 should equal 2");
     }
 
-//    @Test
+    //    @Test
     public void when_createPersonWithoutName_expect_nameViolation() {
         var person = new Person(
-                null, null, people.get(0).getEmail(), people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, null, people.get(0).email(), people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("name must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(null, person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertNull(person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
-//    @Test
+    //    @Test
     public void when_createPersonWithBlankName_expect_nameViolation() {
         var person = new Person(
-                null, "", people.get(0).getEmail(), people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, "", people.get(0).email(), people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("name must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals("", person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals("", person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 
     @Test
     public void when_createPersonWithoutEmail_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), null, people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), null, people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("email must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(null, person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertNull(person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
     @Test
     public void when_createPersonWithBlankEmail_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), "", people.get(0).getCpf()
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), "", people.get(0).cpf()
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("email must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals("", person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals("", person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 
     @Test
     public void when_createPersonWithoutCpf_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), null
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), people.get(0).email(), null
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("cpf must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(null, person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(null, person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
     @Test
     public void when_createPersonWithBlankCpf_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), ""
-                , people.get(0).getPhone(), people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), people.get(0).email(), ""
+                , people.get(0).phone(), people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("cpf must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals("", person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals("", person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 
     @Test
     public void when_createPersonWithoutPhone_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), people.get(0).getCpf()
-                , null, people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), people.get(0).email(), people.get(0).cpf()
+                , null, people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("phone must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(null, person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(null, person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
     @Test
     public void when_createPersonWithBlankPhone_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), people.get(0).getCpf()
-                , "", people.get(0).getBirthDate(), people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), people.get(0).email(), people.get(0).cpf()
+                , "", people.get(0).birthDate(), people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("phone must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals("", person.getPhone());
-        assertEquals(people.get(0).getBirthDate(), person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals("", person.phone());
+        assertEquals(people.get(0).birthDate(), person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 
     @Test
     public void when_createPersonWithoutPhoneBirthDate_expect_nameViolation() {
         var person = new Person(
-                null, people.get(0).getName(), people.get(0).getEmail(), people.get(0).getCpf()
-                , people.get(0).getPhone(), null, people.get(0).getCreateAt());
-        // Validate the person object
+                null, people.get(0).name(), people.get(0).email(), people.get(0).cpf()
+                , people.get(0).phone(), null, people.get(0).createAt());
         Set<ConstraintViolation<Person>> violations = validator.validate(person);
-        // Check that there is a violation for the name field
         assertFalse(violations.isEmpty());
         assertEquals("birthDate must not be null or blank", violations.iterator().next().getMessage());
 
-        assertEquals(null, person.getId());
-        assertEquals(people.get(0).getName(), person.getName());
-        assertEquals(people.get(0).getEmail(), person.getEmail());
-        assertEquals(people.get(0).getCpf(), person.getCpf());
-        assertEquals(people.get(0).getPhone(), person.getPhone());
-        assertEquals(null, person.getBirthDate());
-        assertEquals(people.get(0).getCreateAt(), person.getCreateAt());
+        assertNull(person.id());
+        assertEquals(people.get(0).name(), person.name());
+        assertEquals(people.get(0).email(), person.email());
+        assertEquals(people.get(0).cpf(), person.cpf());
+        assertEquals(people.get(0).phone(), person.phone());
+        assertEquals(null, person.birthDate());
+        assertEquals(people.get(0).createAt(), person.createAt());
     }
 }

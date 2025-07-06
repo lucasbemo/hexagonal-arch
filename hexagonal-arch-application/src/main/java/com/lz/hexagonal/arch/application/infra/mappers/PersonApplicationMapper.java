@@ -1,6 +1,6 @@
 package com.lz.hexagonal.arch.application.infra.mappers;
 
-import com.lz.hexagonal.arch.application.person.adapters.in.web.dtos.CreatePersonRequestWeb;
+import com.lz.hexagonal.arch.application.person.adapters.inbound.api.dtos.CreatePersonRequestWeb;
 import com.lz.hexagonal.arch.domain.person.models.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

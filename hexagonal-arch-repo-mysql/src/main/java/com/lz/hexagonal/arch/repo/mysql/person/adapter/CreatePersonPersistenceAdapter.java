@@ -4,7 +4,7 @@ import com.lz.hexagonal.arch.domain.infra.HexagonalErrorCodes;
 import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalException;
 import com.lz.hexagonal.arch.domain.infra.exceptions.HexagonalInternalException;
 import com.lz.hexagonal.arch.domain.person.models.Person;
-import com.lz.hexagonal.arch.domain.person.ports.out.ICreatePersonPort;
+import com.lz.hexagonal.arch.domain.person.ports.ICreatePersonPort;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.entities.PersonEntity;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.repository.IPersonRepository;
 import jakarta.validation.ConstraintViolationException;

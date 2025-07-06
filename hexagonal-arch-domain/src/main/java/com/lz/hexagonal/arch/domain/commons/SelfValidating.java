@@ -16,6 +16,11 @@ public abstract class SelfValidating<T> {
         validator = factory.getValidator();
     }
 
+    /**
+     * Validates the current instance of the class.
+     * This method should be called in the constructor or any method that modifies the state of the object.
+     * If there are validation errors, a ConstraintViolationException is thrown.
+     */
     @SuppressWarnings("unchecked")
     protected void validateSelf() {
         Set<ConstraintViolation<T>> violations = validator.validate((T) this);

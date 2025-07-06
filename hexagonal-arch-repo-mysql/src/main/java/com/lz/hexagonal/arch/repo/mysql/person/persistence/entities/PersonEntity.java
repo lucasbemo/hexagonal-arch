@@ -1,9 +1,9 @@
 package com.lz.hexagonal.arch.repo.mysql.person.persistence.entities;
 
 import com.lz.hexagonal.arch.domain.person.models.Person;
+import com.lz.hexagonal.arch.repo.mysql.person.persistence.uuidv7.GeneratedUuidV7;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -11,13 +11,14 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 public class PersonEntity {
 
     @Id
-    @GeneratedValue
-    private long id;
+    @GeneratedUuidV7
+    private UUID id;
 
     @NotBlank
     @Column(nullable = false)
@@ -52,8 +53,8 @@ public class PersonEntity {
     }
 
     public PersonEntity(
-            long id, String name, String email, String cpf, String phone, LocalDate birthDate, LocalDateTime createAt) {
-        if (id == 0)
+            UUID id, String name, String email, String cpf, String phone, LocalDate birthDate, LocalDateTime createAt) {
+        if (id == null)
             this.id = id;
         this.name = name;
         this.email = email;
@@ -65,11 +66,11 @@ public class PersonEntity {
         this.updateAt = LocalDateTime.now();
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -131,8 +132,8 @@ public class PersonEntity {
 
     public static PersonEntity fromPerson(final Person person) {
         return new PersonEntity(
-                (person.getId() == null? 0: person.getId()), person.getName(), person.getEmail(), person.getCpf(),
-                person.getPhone(), person.getBirthDate(), person.getCreateAt());
+                (person.id() == null? null: person.id()), person.name(), person.email(), person.cpf(),
+                person.phone(), person.birthDate(), person.createAt());
     }
 
     public Person toPerson() {

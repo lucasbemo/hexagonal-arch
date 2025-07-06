@@ -1,4 +1,4 @@
-package com.lz.hexagonal.arch.application.person.adapters.in.web.dtos;
+package com.lz.hexagonal.arch.application.person.adapters.inbound.api.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lz.hexagonal.arch.application.infra.mappers.PersonApplicationMapperImpl;

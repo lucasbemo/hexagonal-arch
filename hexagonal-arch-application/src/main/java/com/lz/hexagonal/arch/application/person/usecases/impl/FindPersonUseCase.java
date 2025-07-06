@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public record FindPersonUseCase(IFindPersonPort findPersonPort) implements IFindPersonUseCase {
 
-    static final Logger logger = LoggerFactory.getLogger(FindPersonUseCase.class.getClassLoader().getName());
+    static final Logger logger = LoggerFactory.getLogger(FindPersonUseCase.class);
 
     @Override
     public Person execute(final long id) {

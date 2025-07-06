@@ -1,13 +1,13 @@
 package com.lz.hexagonal.arch.repo.mysql.person.adapter;
 
+import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
+import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
+import com.lz.hexagonal.arch.domain.person.ports.IListPersonPort;
 import com.lz.hexagonal.arch.repo.mysql.person.infra.mappers.PersonMapper;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.entities.PersonEntity;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.repository.IListPaginationPersonRepository;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.PersonSpecification;
 import com.lz.hexagonal.arch.repo.mysql.person.persistence.specifications.SearchCriteria;
-import com.lz.hexagonal.arch.domain.person.dtos.ListPageablePersonDTO;
-import com.lz.hexagonal.arch.domain.person.dtos.ListPersonDTO;
-import com.lz.hexagonal.arch.domain.person.ports.out.IListPersonPort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,7 +40,7 @@ public record ListPersonRepositoryAdapter(
                         .collect(Collectors.toList()));
     }
 
-    public Page<PersonEntity> findAllWithSpecification(final ListPersonDTO listPersonDTO) {
+    private Page<PersonEntity> findAllWithSpecification(final ListPersonDTO listPersonDTO) {
         return repository.findAll(
                 Specification.where(getPersonSpecification(listPersonDTO)),
                 getPageable(listPersonDTO));
@@ -50,7 +50,7 @@ public record ListPersonRepositoryAdapter(
         return repository.findAll(getPageable(listPersonDTO));
     }
 
-    public Pageable getPageable(final ListPersonDTO listPersonDTO) {
+    private Pageable getPageable(final ListPersonDTO listPersonDTO) {
         return PageRequest.of(
                 listPersonDTO.page(), listPersonDTO.size(), Sort.by(listPersonDTO.sort()));
     }
